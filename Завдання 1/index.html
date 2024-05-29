@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вибір фотографії</title>
+</head>
+<body>
+   <label for="photoSelect">Виберіть фотографію:</label>
+   <select id="photoSelect" onchange="prosm(this)">
+      <option value="forest">Ліс</option>
+      <option value="lake">Озеро</option>
+      <option value="threshold">Поріг</option>
+      <option value="bridge">Міст</option>
+      <option value="road">Дорога</option>
+      <option value="pinus">Сосна</option>
+      <option value="mushroom">Гриб</option>
+      <option value="flowers">Квіти</option>
+      <option value="rubus">Костяниця</option>
+   </select>
+   <br>
+   <br>
+   <img id = "photo" src="forest.jpg" alt="Фото">
+<script>
+   var photo = new Array()
+   photo["forest"] = new Image (640, 426);
+   photo["forest"].src = "forest.jpg"
+
+   photo["lake"] = new Image(640, 426);
+   photo["lake"].src = "lake.jpg"
+
+   photo["threshold"] = new Image(640, 426);
+   photo["threshold"].src = "threshold.jpg"
+
+   photo["bridge"] = new Image(640, 426);
+   photo["bridge"].src = "bridge.jpg"
+
+   photo["road"] = new Image(640, 426);
+   photo["road"].src = "road.jpg"
+
+   photo["pinus"] = new Image(640, 426);
+   photo["pinus"].src = "pinus.jpg"
+   
+   photo["mushroom"] = new Image(640, 426);
+   photo["mushroom"].src = "mushroom.jpg"
+
+   photo["flowers"] = new Image(640, 426);
+   photo["flowers"].src = "flowers.jpg"
+
+   photo["rubus"] = new Image(640, 426);
+   photo["rubus"].src = "rubus.jpg"
+
+   function prosm(list) {
+      var selectedValue = list.options[list.selectedIndex].value;
+      document.getElementById('photo').src = photo[selectedValue].src;
+    }
+</script>
+</body>
+</html>

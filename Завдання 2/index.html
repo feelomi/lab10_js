@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Побудова еліпса</title>
+</head>
+<body>
+   <h2>Побудова еліпса</h2>
+   <h3>Задайте довжини півось</h3>
+   <label for="Axis_a">горизонтальна a= </label>
+   <input type="number" id = "Axis_a" min="1">
+   <br>
+   <label for="Axis_b">вертикальна b= </label>
+   <input type="number" id="Axis_b" min="1">
+
+   <br>
+   <button onclick="buildEllipse(parseInt(document.getElementById('Axis_a').value), parseInt(document.getElementById('Axis_b').value), 'mosaic')">Побудувати еліпс мозаїкою</button>
+   <br>
+   <button onclick="buildEllipse(parseInt(document.getElementById('Axis_a').value), parseInt(document.getElementById('Axis_b').value), 'svg')">Побудувати еліпс за допомогою SVG</button>
+   <br>
+   <button onclick="buildEllipse(parseInt(document.getElementById('Axis_a').value), parseInt(document.getElementById('Axis_b').value), 'canvas')">Побудувати еліпс за допомогою canvas</button>
+   <br>
+   <div id="ellipse" style="position: relative; width: 300px; height: 300px; border: 1px solid black;"></div>
+
+   <script>
+       function buildEllipse(a, b, method) {
+         var ellipse = document.getElementById('ellipse');
+         ellipse.innerHTML = '';
+
+         var numPoints = 100; // Кількість точок для побудови еліпса
+
+         if(method === "mosaic"){
+            for(var i = 0; i <numPoints; i++){
+               var x = a * Math.cos(2 * Math.PI * i / numPoints);
+               var y = b * Math.sin(2 * Math.PI * i / numPoints);
+
+               var point = document.createElement('div');
+               point.style.width = '1px';
+               point.style.height = '1px';
+               point.style.background = 'black';
+               point.style.position = 'absolute';
+               point.style.left = (150 + x) + 'px';
+               point.style.top = (150 + y) + 'px';
+               ellipse.appendChild(point);
+            }
+         }else if (method === "svg") {
+            var svg = '<svg width="100%" height="100%" viewBox="' + (-a) + ' ' + (-b) + ' ' + (2 * a) + ' ' + (2 * b) + '">';
+            svg += '<ellipse cx="0" cy="0" rx="' + a + '" ry="' + b + '" fill="none" stroke="black"/>';
+            svg += '</svg>';
+            ellipse.innerHTML = svg;
+         }else if (method === "canvas"){
+            var canvas = document.createElement('canvas');
+            canvas.width = 300;
+            canvas.height = 300;
+            var ctx = canvas.getContext('2d');
+            ctx.beginPath();
+            ctx.ellipse(150, 150, a, b, 0, 0, 2 * Math.PI);
+            ctx.strokeStyle = 'black';
+            ctx.stroke();
+            ellipse.appendChild(canvas);
+         }
+       }
+   </script>
+</body>
+</html>
